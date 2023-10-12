@@ -1,0 +1,8 @@
+declare module "*express"
+declare module "*mongoose"
+declare module "*cors"
+declare module "*dotenv"
+declare module "*@types/streamifier"
+declare module "*streamifier"
+declare module "*multer"
+declare module "*@types/multer"
