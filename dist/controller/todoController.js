@@ -50,20 +50,13 @@ const createTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createTodo = createTodo;
 const readOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { todoID, userID } = req.params;
-        const verify = yield userModel_1.default.findById(userID);
-        if (verify) {
-            const tasked = yield todoModel_1.default.findById(todoID).populate({
-                path: "todos",
-                options: {
-                    sort: {
-                        createdAt: -1,
-                    },
-                },
-            });
+        const { userID } = req.params;
+        const user = yield userModel_1.default.findById(userID);
+        if (user) {
+            const tasked = yield todoModel_1.default.find();
             return res.status(200).json({
-                message: "Reading one task ",
-                data: tasked,
+                message: "success",
+                data: tasked
             });
         }
         else {
@@ -71,22 +64,11 @@ const readOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 message: "user not found"
             });
         }
-        const tasked = yield todoModel_1.default.findById(todoID).populate({
-            path: "todos",
-            options: {
-                sort: {
-                    createdAt: -1,
-                },
-            },
-        });
-        return res.status(200).json({
-            message: "Reading one task ",
-            data: tasked,
-        });
     }
     catch (error) {
         return res.status(400).json({
-            message: "Error occured while reading one todo",
+            message: `Error occured while reading one todo${error.message}`,
+            error
         });
     }
 });

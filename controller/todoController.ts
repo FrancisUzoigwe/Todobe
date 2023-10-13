@@ -37,18 +37,19 @@ export const readOne = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
 
-      const tasked = await todoModel.findById(userID).populate({
-        path: "users",
-        options: {
-          sort: {
-            createdAt: -1,
-          },
-        },
-      });
+    const user = await userModel.findById(userID)
+
+    if(user){
+      const tasked =await todoModel.find()
       return res.status(200).json({
-        message: "Reading one task ",
-        data: tasked,
-      });
+        message:"success",
+        data:tasked
+      })
+    }else{
+      return res.status(404).json({
+        message:"user not found"
+      })
+    }
 
   } catch (error: any) {
     return res.status(400).json({
@@ -62,6 +63,7 @@ export const deleteOne = async (req: Request, res: Response) => {
   try {
     const { todoID } = req.params;
     const tasked = await todoModel.findByIdAndDelete(todoID);
+
     return res.status(200).json({
       message: "Task deleted successfully ",
       data: tasked,

@@ -83,7 +83,15 @@ exports.viewAllUser = viewAllUser;
 const viewOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
-        const user = yield userModel_1.default.findById(userID);
+        const user = yield userModel_1.default.findById(userID).populate({
+            path: "todos",
+            options: {
+                sort: {
+                    createdAt: -1,
+                },
+            },
+        });
+        ;
         return res.status(200).json({
             message: "Viewing one user",
             data: user,

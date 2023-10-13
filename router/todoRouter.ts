@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 router.route("/:userID/create").post(createTodo);
 router.route("/all-todos").get(viewAllTodo);
-router.route("/:userId/view-one-todo").get(readOne);
-router.route("/:todoID/delete").delete(deleteOne);
+router.route("/:userID/view-one-todo").get(readOne);
+router.route("/:todoID/delete-task").delete(deleteOne);
 
 export default router;

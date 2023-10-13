@@ -8,5 +8,6 @@ const todoController_1 = require("../controller/todoController");
 const router = express_1.default.Router();
 router.route("/:userID/create").post(todoController_1.createTodo);
 router.route("/all-todos").get(todoController_1.viewAllTodo);
-router.route("/:userID/:todoID/view-one").get(todoController_1.readOne);
+router.route("/:userID/view-one-todo").get(todoController_1.readOne);
+router.route("/:todoID/delete-task").delete(todoController_1.deleteOne);
 exports.default = router;
