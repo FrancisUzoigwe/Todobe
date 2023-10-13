@@ -66,7 +66,14 @@ export const viewAllUser = async (req: Request, res: Response) => {
 export const viewOne = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
-    const user = await userModel.findById(userID);
+    const user = await userModel.findById(userID).populate({
+      path: "todos",
+      options: {
+        sort: {
+          createdAt: -1,
+        },
+      },
+    });;
     return res.status(200).json({
       message: "Viewing one user",
       data: user,
